@@ -84,10 +84,10 @@ p3 <- p2 + annotate("text", x = 620, y = 4.75, label = "female",
 p3
 
 ## adding a title with color
-p4 <- p3 + labs(title = "<b> Total length of Siscowet Lake Trout </b><br> <span style = 'font-size:10pt'> <span style='color:#1f78b4'>Male</span> and <span style='color:#33a02c'>female</span> fish lengths were compared across four locations in Michigan waters of Lake Superior </span>") +
+p4 <- p3 + labs(title = "<b> Total lengths of Siscowet Lake Trout </b><br> <span style = 'font-size:10pt'> <span style='color:#1f78b4'>Male</span> and <span style='color:#33a02c'>female</span> lengths across four locations in Michigan waters of Lake Superior. </span>") +
   theme(
     plot.title.position = "plot",
-    plot.title = element_markdown(size = 11, lineheight = 1.2)
+    plot.title = element_markdown(size = 25, lineheight = 1.2)
   )
  p4
 ```
