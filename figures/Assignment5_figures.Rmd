@@ -1,8 +1,9 @@
 ---
 title: "Assignment 5"
-subtitle: "Practice in data visualization"
 author: "Jenny Stern"
-output: 
+subtitle: Practice in data visualization
+output:
+  pdf_document: default
   html_document:
     theme: lumen
     highlight: tango
