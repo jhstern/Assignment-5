@@ -1,0 +1,94 @@
+---
+title: "Assignment 5"
+subtitle: "Practice in data visualization"
+author: "Jenny Stern"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Creating an exploratory figure
+
+I was interested in exploring the relationship between fish sampling location, length, and sex. Because I wanted to see how the distribution of lengths varied among sites and sex, I relied on two different density plot types - violin and rideline - to explore the data:
+
+```{r building an exploratory figure}
+## packages
+library(ggplot2)
+library(ggridges)
+
+## load the data
+laketrout <- read.csv("/Users/jhstern/Documents/Assignment-5/data/siscowet.csv")
+summary(laketrout)
+
+## remove NAs
+laketrout <- laketrout[!is.na(laketrout$sex),]
+summary(laketrout) #780 observations to 721 for sex
+
+## violin plots
+
+loc_len_violin <- ggplot(laketrout, aes(x = locID, y = len, color = sex)) + geom_violin(size = 1.5) 
+loc_len_violin
+
+sex_len_violin <- ggplot(laketrout, aes(x = sex, y = len, color = locID)) + geom_violin(size = 1.5) 
+sex_len_violin 
+
+
+## ridgelines plots
+len_loc_ridge <- ggplot(laketrout, aes(x = len , y = locID,  fill = locID)) +
+  ggridges::geom_density_ridges(scale = 1)
+len_loc_ridge
+
+len_sex_ridge_loc <- ggplot(laketrout, aes(x = len , y = sex,  fill = locID)) +
+  ggridges::geom_density_ridges(scale = 1)
+len_sex_ridge_loc
+
+len_loc_ridge_sex <- ggplot(laketrout, aes(x = len , y = locID,  fill = sex)) +
+  ggridges::geom_density_ridges(scale = 1)
+len_loc_ridge_sex
+
+```
+
+I have decided to build on the exploratory figure above because I have not made a ridgeline plot before and would like to practice. I also thought this plot did a nice job of showing how length distributions varied among sites and sexes
+
+## Creating an expository figure
+
+```{r expository figure}
+## loading additional packages
+library(ggtext)
+
+## defining my base plot, changing the scale (overlap) of the figure, and making the outline of the density match the color
+pp <- ggplot(laketrout, aes(x = len , y = locID,  fill = sex, color = sex)) +
+  ggridges::geom_density_ridges(scale = 1.2, alpha = 0.4)
+pp
+
+## changing axis labels and removing grey background & gridlines
+p1 <- pp + 
+  scale_x_continuous(expand = c(0, 0), name = " Total length [mm]") +
+  scale_y_discrete(expand = c(0, 0), name = "") + theme_ridges(grid = FALSE, center = TRUE)
+p1
+
+## using color brewer, changing the colors of male & female to be less stereotypical and more colorblind friendly, making outline colors darker
+ p2 <- p1 + scale_fill_manual(values = c("#b2df8a", "#a6cee3"), labels = c("female", "male")) + scale_color_manual(values = c("#33a02c", "#1f78b4"), guide = "none") + ggridges::geom_density_ridges(scale = 1.2, alpha = 0.8)
+p2
+ 
+## taking away the legend, and labeling "male" and "female" within the plot
+p3 <- p2 + annotate("text", x = 620, y = 4.75, label = "female",
+           color = "#33a02c") + annotate("text", x = 410, y = 4.75, label = "male",
+           color = "#1f78b4") + theme(legend.position="none")
+p3
+
+## adding a title with color
+p4 <- p3 + labs(title = "<b> Total length of Siscowet Lake Trout </b><br> <span style = 'font-size:10pt'> <span style='color:#1f78b4'>Male</span> and <span style='color:#33a02c'>female</span> fish lengths were compared across four locations in Michigan waters of Lake Superior </span>") +
+  theme(
+    plot.title.position = "plot",
+    plot.title = element_markdown(size = 11, lineheight = 1.2)
+  )
+ p4
+```
+
+## This is my final expository figure.
