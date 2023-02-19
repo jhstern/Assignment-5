@@ -54,7 +54,7 @@ len_loc_ridge_sex
 
 ```
 
-I have decided to build on the exploratory figure above because I have not made a ridgeline plot before and would like to practice. I also thought this plot did a nice job of showing how length distributions varied among sites and sexes
+I have decided to build on the exploratory figure above because I have not made a ridgeline plot before and would like to practice. I also thought this plot did a nice job of showing how length distributions varied among sites and sexes.
 
 ## Creating an expository figure
 
